@@ -21,12 +21,49 @@ kubectl proxy
 
 #Ejecutar ficheros .yml
 kubectl create -f nginx.yml
+kubectl apply -f nginx.yml --> utilizar siempre
+
 
 #formatear la salida en YAML o JSON
 kubect get pod/nginx -o yaml > ngynxconfig.yaml
 
 #Eliminar un POD
 kubectl delete pod/nginx1
+kubectl delete pod nginx1,apache2,nginx2
+
+#Eliminar un POD periodo de gracia, espera 5 segundos
+kubectl delete pod/nginx1 --grace-period=5
+
+#Eliminar un POD immediatamente
+kubectl delete pod/nginx1 --now
+
+#Borrar todo PELIGROOO!!
+kubectl delete pods --all
+
+#Acceder a los logs de un contenedor en un POD multiContainer
+kubectl logs pod redis-django -c frontal
+
+#Reiniciar un POD
+restartPolicy: Always
+restartPolicy: OnFilure
+restartPolicy: Never
+
+Ejemplo
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tomcat
+  labels:
+    app: tomcat
+spec:
+  containers:
+   - name: tomcat     
+     image: tomcat
+  restartPolicy: Always
+
+
+
+
 
 
 
