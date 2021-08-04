@@ -4,6 +4,11 @@ kubectl describe pod/nginx1
 #obtener los pods
 kubectl get pods
 
+#obtener los pods con más información
+kubectl get pods -o wide
+
+
+
 #lista los directorios del contenedor
 kubectl exec nginx1 ls
 
