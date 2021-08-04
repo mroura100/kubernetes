@@ -1,0 +1,25 @@
+#Descripción POD
+kubectl describe pod/nginx1
+
+#obtener los pods
+kubectl get pods
+
+#lista los directorios del contenedor
+kubectl exec nginx1 ls
+
+#entrar dentro del contenedor
+kubectl exec nginx1 -it bash
+
+#levantar un contenedor con la imagen httpd(apache)
+kubectl run apache --image=httpd --port=8080
+
+#ver logs contenedor
+kubectl logs apache
+
+#muestra en JSON toda la info de k8s
+kubectl proxy
+
+
+
+
+
