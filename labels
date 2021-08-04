@@ -11,3 +11,19 @@ spec:
    - name: tomcat
      image: tomcat
 
+#ver etiquetas label de un contenedor
+kubectl get pod tomcat --show-labels
+kubectl get pod tomcat --show-labels -L estado
+
+#Trabajar con labels
+kubectl label pod tomcat responsable=juan
+kubectl get pods --show-labels
+
+#Sobreescribir una etiqueta
+kubectl label --overwrite pod tomcat estado=test
+
+#Eliminar una etiqueta
+kubectl label pod tomcat responsable-
+
+Hacer siemrpe de forma declarativa
+
