@@ -19,6 +19,17 @@ kubectl logs apache
 #muestra en JSON toda la info de k8s
 kubectl proxy
 
+#Ejecutar ficheros .yml
+kubectl create -f nginx.yml
+
+#formatear la salida en YAML o JSON
+kubect get pod/nginx -o yaml > ngynxconfig.yaml
+
+#Eliminar un POD
+kubectl delete pod/nginx1
+
+
+
 
 
 
