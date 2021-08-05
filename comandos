@@ -35,6 +35,7 @@ kubect get pod/nginx -o yaml > ngynxconfig.yaml
 #Eliminar un POD
 kubectl delete pod/nginx1
 kubectl delete pod nginx1,apache2,nginx2
+kubectl delete pods -l estado=desarrollo 
 
 #Eliminar un POD periodo de gracia, espera 5 segundos
 kubectl delete pod/nginx1 --grace-period=5
