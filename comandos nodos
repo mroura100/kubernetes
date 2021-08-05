@@ -1,0 +1,2 @@
+#Mostrar la información de un nodo
+kubectl describe node
