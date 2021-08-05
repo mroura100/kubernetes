@@ -1,0 +1,5 @@
+#tipos de servicio
+- ClusterIP (solo se ve entre pods internos)
+- NodePort (connexion externo)
+- LoadBalancer (para le cloud)
+
