@@ -50,3 +50,6 @@ kubectl edit deploy nginx-d
 #Mostrar la información de un deployment
 kubectl describe deploy apache
 
+#Escalar un Deployment
+kubectl scale deploy -l estado=1 --replicas=10
+
