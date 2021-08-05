@@ -1,2 +1,6 @@
 #Mostrar la información de un nodo
 kubectl describe node
+
+#instalar metric server para er mas información
+kubectl top node
+kubectl top pods
