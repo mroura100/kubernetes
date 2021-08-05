@@ -3,3 +3,28 @@
 - NodePort (connexion externo)
 - LoadBalancer (para le cloud)
 
+#Ejemplo de servicio
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-svc
+  labels:
+     app: web
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    nodePort: 30002
+    protocol: TCP
+  selector:
+     app: web
+
+
+#Crear servicio modo imperativo
+kubectl expose deployment web-d --name=web-svc --target-port:80 --type=NodePort
+
+#Ver servicios
+kubectl get svc -o wide
+kubectl describe svc web-d
+
+
