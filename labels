@@ -25,5 +25,10 @@ kubectl label --overwrite pod tomcat estado=test
 #Eliminar una etiqueta
 kubectl label pod tomcat responsable-
 
+#Mostrar labels por contenidor de la misma
+kubectl get pod tomcat --show-labels -l estado in(desarrollo)
+kubectl get pod tomcat --show-labels -l estado in(desarrollo,testing)
+kubectl get pod tomcat --show-labels -l estado notin(desarrollo,testing)
+
 Hacer siemrpe de forma declarativa
 
