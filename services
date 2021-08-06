@@ -3,7 +3,7 @@
 - NodePort (connexion externo)
 - LoadBalancer (para le cloud)
 
-#Ejemplo de servicio
+#Ejemplo de servicio declarativo
 apiVersion: v1
 kind: Service
 metadata:
