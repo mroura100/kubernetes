@@ -47,4 +47,15 @@ spec:
     protocol: TCP
   selector:
      app: nginx
+     
+#Mostrar el histórico de despliegues 
+kubectl rollout history deploy nginx-d
+
+#Mostrar información sobre las actualizaciones de los despliegues
+kubectl rollout history deploy nginx-d --revision=1
+
+
+
+
+
 
