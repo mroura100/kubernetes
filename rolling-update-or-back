@@ -55,6 +55,13 @@ kubectl rollout history deploy nginx-d
 kubectl rollout history deploy nginx-d --revision=1
 
 
+#Deshacer cambios RollingBack
+kubectl rollout undo deployment nginx-d --to-revision=2 (creará una nueva REVISION)
+kubectl rollout status deploy nginx-d
+
+
+
+
 
 
 
