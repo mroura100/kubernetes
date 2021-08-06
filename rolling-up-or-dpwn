@@ -1,3 +1,7 @@
+#Tipod de Strategys para updates
+- RollingUpdate (No hay perdida de servicio)
+- Recreate (perdida de servicio)
+
 #Ejemplo fichero Rolling Update
 apiVersion: apps/v1 # i se Usa apps/v1beta2 para versiones anteriores a 1.9.0
 kind: Deployment
