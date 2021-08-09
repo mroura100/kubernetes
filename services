@@ -27,4 +27,7 @@ kubectl expose deployment web-d --name=web-svc --target-port:80 --type=NodePort
 kubectl get svc -o wide
 kubectl describe svc web-d
 
+#Variables de entorno del servicio en los PODS
+ 
+
 
