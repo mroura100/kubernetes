@@ -1,1 +1,14 @@
+Sirve para diferenciar zonas "entornos"
+el namespace por defecto es el "default"
 
+#Ver los namespaces
+kubectl get namespace
+
+#Ver namespace específico
+kubectl get namespace default
+
+#Mostrar información de un namespace
+kubectl describe namespace default
+
+#Mostrar pods de un namespace
+kubectl get pods -n default
