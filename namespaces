@@ -2,7 +2,7 @@ Sirve para diferenciar zonas "entornos"
 el namespace por defecto es el "default"
 
 #Ver los namespaces
-kubectl get namespace
+kubectl get namespaces
 
 #Ver namespace específico
 kubectl get namespace default
@@ -12,3 +12,47 @@ kubectl describe namespace default
 
 #Mostrar pods de un namespace
 kubectl get pods -n default
+
+#Crear un namespace imperativo
+kubectl create namespace n1
+
+#Crear un namespace declarativo
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev1
+  labels:
+     tipo: desarrollo
+
+
+#Borrar un namespace
+kubectl delete namespace n1
+
+#Crear objetos en un namespace
+kubectl apply -f deploy_elastic.yaml -n dev1
+kubectl apply -f deploy_elastic.yaml --namespace==dev1
+
+#Establecer un namespace por defecto
+kubectl config view
+kubectl config set-context --current --namespace=dev1
+
+#Poner cpu y memoria a los namespaces
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: recursos
+spec:
+  limits:
+  - default:
+      memory: 512Mi
+      cpu: 1
+    defaultRequest:
+      memory: 256Mi
+      cpu: 0.5
+    max:
+      memory: 1Gi
+      cpu: 4
+    min:
+      memory: 128Mi
+      cpu: 0.5
+    type: Container
