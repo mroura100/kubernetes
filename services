@@ -28,6 +28,8 @@ kubectl get svc -o wide
 kubectl describe svc web-d
 
 #Variables de entorno del servicio en los PODS
- 
+ env:
+ - name: GET_HOST_FROM
+   value: dns
 
 
