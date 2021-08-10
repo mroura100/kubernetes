@@ -1,0 +1,20 @@
+##Instlaar master and workers con Centos 8 VAGRANT
+La instalación se hace normal pero encotnramos los siguintes problemas
+
+####################################################
+ error en el driver docker, lo ponemos como systemd
+ #cambiar driver docker
+vi /etc/docker/daemon.json
+{
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}
+sudo systemctl restart docker
+#####################################################
+###########################################################################################
+al iniciar el kubeadm init nos coge la eth0 y debe cogernos la eth1 (la ip de nuestra master)
+debemos ejecutar el siguiente comando
+kubeadm init --apiserver-advertise-address=192.168.33.16 --pod-network-cidr=192.168.0.0/16
+###########################################################################################
+
+por lo demas podemos seguir le siguiente tutorial
+https://upcloud.com/community/tutorials/install-kubernetes-cluster-centos-8/
