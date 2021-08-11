@@ -1,3 +1,7 @@
+#Ver PV y PVC
+kubectl get pv
+kubectl get pvc
+
 
 #Crear volumenes
 apiVersion: v1
@@ -41,3 +45,41 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/mnt/data"
+    
+#Crear volumen persistente Claim (PVC)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pv-claim
+spec:
+  storageClassName: sistemaficheros
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+
+
+
+#Crear pod con un volumen persistente Claim (PVC)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pv-pod
+spec:
+  volumes:
+    - name: pv-storage
+      persistentVolumeClaim:
+        claimName: pv-claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: pv-storage
+
+#Crear volumen NFS
+
