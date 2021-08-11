@@ -1,0 +1,20 @@
+##Creamos una etiqueta para el nodo
+kubectl get nodes --show-labels
+kubectl label node worker01 tipo=lento
+
+##En el fichero .yaml específicamos la etiqueta "lento"
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-nod
+  labels:
+    env: prueba
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+  nodeSelector:
+    tipo: lento
+    
+#Aplicando esto el pod nginx-nod se desplegará en el nodo worker01
