@@ -81,5 +81,51 @@ spec:
         - mountPath: "/usr/share/nginx/html"
           name: pv-storage
 
-#Crear volumen NFS
+#Crear volumen NFS (PV)
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv
+spec:
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: volumen-nfs
+  nfs:
+    path: /var/datos
+    server: 192.168.174.131
+    
+###NFS PVC
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc
+spec:
+  storageClassName: volumen-nfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+
+#Crear POD para tenga disco NFS
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-nfs
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+      - mountPath: /usr/share/nginx/html
+        name: nfs-vol
+  volumes:
+    - name: nfs-vol
+      persistentVolumeClaim:
+        claimName: nfs-pvc
+
+    
 
