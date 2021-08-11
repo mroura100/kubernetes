@@ -63,7 +63,7 @@ dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce
 dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm -y
 3. Then install Docker from the repositories.
 
-dnf install docker-ce --nobest -y
+dnf install docker-ce -y
 4. Start the docker service.
 
 systemctl start docker
@@ -117,7 +117,7 @@ Start the Kubernetes services and enable them to run at startup.
 reboot
 
 systemctl enable kubelet
-systemctl start kubelet
+
 Once running on both nodes, begin configuring Kubernetes on the Master by following the instructions in the next section.
 
 Configuring Kubernetes on the Master node only
