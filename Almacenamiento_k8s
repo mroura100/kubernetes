@@ -25,3 +25,19 @@ spec:
       repository: https://github.com/apasoftTraining/cursoKubernetes.git
   - name: temp
     emptyDir: {}
+
+#Crear volumen persistente (PV)
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-volume
+  labels:
+    type: local
+spec:
+  storageClassName: sistemaficheros
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
