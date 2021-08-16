@@ -1,0 +1,96 @@
+#Ver los configmaps creados 
+kubectl get cm
+
+#Crear un config map declarativo
+apiVersion: v1
+data:
+  MYSQL_DATABASE: kubernetes
+  MYSQL_PASSWORD: usupass
+  MYSQL_ROOT_PASSWORD: kubernetes
+  MYSQL_USER: usudb
+kind: ConfigMap
+metadata:
+  name: datos-mysql-env
+  namespace: default
+
+
+#Crear un config map a través de un archivo properties
+vi datos.properties
+MYSQL_ROOT_PASSWORD=kubernetes
+MYSQL_USER=usudb
+MYSQL_PASSWORD=usupass
+MYSQL_DATABASE=kubernetes
+
+#Creamos el config map
+ERROR NO HACER CON ESTE COMANDO
+kubectl create configmap datos-mysql --from-file=datos.properties --> esto nos genera un archivo con todo el contenido 
+y con las variables juntas, no nos sirve
+
+HACER CORRECTAMENTE
+kubectl create configmap datos-mysql --from-env-file=datos.properties --> nos genera el config map correctamente
+
+#Cargar variables configMap en un pod delcarativo
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod1
+spec:
+  containers:
+    - name: test-container
+      image: gcr.io/google-samples/node-hello:1.0
+      envFrom:
+      - configMapRef:
+          name: datos-mysql-env
+  restartPolicy: Never
+  
+  
+#Ejemplo crear deploy varables configMap, PODEMOS DEFINIR EL NOMBRE DE LAS VARIABLES, NO SU VALOR!
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-deploy
+  labels:
+    app: mysql
+    type: db
+spec:
+  replicas: 1
+  selector: 
+    matchLabels:
+      app: mysql
+      type: db
+  template:
+    metadata:
+      labels:
+        app: mysql
+        type: db
+    spec:
+      containers:
+        - name: mysql57
+          image: mysql:5.7
+          ports:
+            - containerPort: 3306
+              name: db-port
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: datos-mysql-env
+                  key: MYSQL_ROOT_PASSWORD
+
+            - name: MYSQL_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: datos-mysql-env
+                  key: MYSQL_USER
+            
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: datos-mysql-env
+                  key: MYSQL_DATABASE
+
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: datos-mysql-env
+                  key: MYSQL_PASSWORD
