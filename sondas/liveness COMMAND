@@ -1,3 +1,5 @@
+#Si da error se parará el contenedor i se aplicará la RestartPolicy que tenga definida
+
 apiVersion: v1
 kind: Pod
 metadata:
