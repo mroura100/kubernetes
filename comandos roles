@@ -43,6 +43,52 @@ mkdir certs
 cd certs
 openssl genrsa -out desa1.key 4096
 
+vi desa1.crs.cnf
+[kubeadmin@master certs]$ vi desa1.crs.cnf
+[ req ]
+default_bits = 2048
+prompt = no
+default_md = sha256
+distinguished_name = dn
+[ dn ]
+CN = desa1
+O = desarrollo
+[ v3_ext ]
+authorityKeyIdentifier=keyid,issuer:always
+basicConstraints=CA:FALSE
+keyUsage=keyEncipherment,dataEncipherment
+extendedKeyUsage=serverAuth,clientAuth
+~
+
+
+openssl req -config desa1.crs.cnf -new -key desa1.key -out desa1.csr
+
+Aplicamos el certificado al nodo Master
+cat <<EOF | kubectl apply -f -
+apiVersion: certificates.k8s.io/v1beta1
+kind: CertificateSigningRequest
+metadata: 
+  name: desa1-req-auth
+spec:
+  groups:
+  - system:authenticated
+  request: $(cat desa1.csr | base64 | tr -d '\n')
+  usages:
+  - digital signature
+  - key encipherment
+  - server auth
+  - client auth
+EOF
+
+#ver los CertificateSigningRequest
+kubectl get csr (lo vemos en estado PENDING)
+
+#El administrador debe aprobar el certificado
+kubectl certificate approve desa1-req-auth
+
+
+
+
 
 
 
