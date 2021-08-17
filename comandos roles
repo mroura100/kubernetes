@@ -1,0 +1,23 @@
+#Ver roles a nivel de namespaces
+kubectl create namespace ventas
+kubectl get namespaces
+
+#Mostrar todos los roles
+kubectl get roles --all-namespaces
+
+#Describir un role
+kubectl describe role kube-system -n kube-system
+
+#Crear un role
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: ventas
+  name: operador
+rules:
+- apiGroups: [""] 
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]
+  
+
+
