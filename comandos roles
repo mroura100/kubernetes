@@ -38,4 +38,11 @@ rules:
   resources: ["pods"]
   verbs: ["create", "watch", "list","get","edit"]
 
+#Crear certificados para el acceso de un usuario
+mkdir certs
+cd certs
+openssl genrsa -out desa1.key 4096
+
+
+
 
