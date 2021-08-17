@@ -20,4 +20,22 @@ rules:
   verbs: ["get", "watch", "list"]
   
 
+#Acceder a los api-resources
+kubectl api-resources
+
+#Cluster Roles
+kubectl get clusterroles
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: desarrollo
+rules:
+- apiGroups: [""]
+  resources: ["secrets","configmaps"]
+  verbs: ["get", "watch", "list"]
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["create", "watch", "list","get","edit"]
+
 
