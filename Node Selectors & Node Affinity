@@ -1,0 +1,51 @@
+#Creamos la etirueta para le nodo
+kubectl label nodes worker01 disktype=ssd
+
+#Comprobamos que se ha creado correctamente
+kubectl get nodes --show-labels
+
+#Creamos un pod con el parámetro nodeSelector
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: test
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+  nodeSelector:
+    disktype: ssd
+    
+#################################################################################################
+NODE AFFINITY
+
+#Le podemos expecificar condiciones, hay dos opciones requiredDuringSchedulingIgnoredDuringExecution: y preferredDuringSchedulingIgnoredDuringExecution:
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: disktype
+            operator: In
+            values:
+            - ssd
+            
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: another-node-label-key
+            operator: In
+            values:
+            - another-node-label-value
+  containers:
+  - name: nginx
+    image: nginx
