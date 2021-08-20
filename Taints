@@ -1,0 +1,27 @@
+#Un taint(repelente) se usa para seleccionar en que nodos puede desplegarse un POD
+kubectl taint node worker01 app=blue:NoSchedule
+kubectl taint nodes node1 key1=value1:NoExecute
+
+#Ejemplo, aplicar un taint a un POD
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: test
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  tolerations:
+  - key: "app-key"
+    value: "blue"
+    operator: "Equal"
+    effect: "NoSchedule"
+    
+#Ver los taint que tiene un nodo
+kubectl describe node node01 | grep Taints
+
+#Eliminar un Taint, se le añade un guión al final
+kubectl taint node worker01 app=blue:NoSchedule-
+
